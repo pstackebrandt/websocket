@@ -14,7 +14,8 @@ io.on('connection', (socket) => {
 
     socket.on('chat message written', (msg) => {
         console.log('message:' + msg);
-        io.emit('chat message received', msg);
+        // io.emit('chat message received', msg);
+        socket.broadcast.emit('chat message received',msg);
     });
 
     socket.on('disconnect', () => {
@@ -52,6 +53,7 @@ app.get('/chat2', (req, res) => {
     //res.send('Hallo Welt!');
     console.log('kontakt zum Browser with page type 2 chats per page');
     res.sendFile('C:/Users/peter/code/javascript/js_workshop_alfa/websocket/public/index_2_chats_on_page.html');
+    
 });
 
 
