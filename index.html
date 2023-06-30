@@ -1,42 +1,29 @@
-<html>
+<!DOCTYPE html>
+<html lang="de">
 
 <head>
-
+    <title>Chat via websocket</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
     <br><br>
     <h1> Chat Nachrichten:</h1>
     <form id="form" action="">
-        <input id="input" autocomplete="off"><button>Send</button>
+        <form id="form" action="">
+            <label for="input">Message:</label>
+            <input id="input" type="text" name="message" autocomplete="off" placeholder="Enter your message here"
+                title="Message input field">
+            <button type="button" aria-label="Send message">Send</button>
+        </form>
     </form>
     <ul id="messages">
         <li>Top Nachricht</li>
     </ul>
 
+    <script src="/index.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-
-        var form = document.getElementById('form');
-        var input = document.getElementById('input');
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (input.value) {
-                socket.emit('chat message written', input.value);
-                input.value = '';
-            }
-        });
-
-        socket.on('chat message received', function (msg) {
-            var item = document.createElement('li');
-            item.textContent = msg;
-            document.getElementById('messages').appendChild(item);
-            //alert(msg);
-        });
-    </script>
-
 </body>
 
 </html>
