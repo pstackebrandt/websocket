@@ -15,9 +15,9 @@
         <h2>Chat 1</h2>
         <form id="chatForm1" action="">
             <label for="input">Message:</label>
-            <input id="input" type="text" name="message" autocomplete="off" placeholder="Enter your message here"
+            <input id="input1" type="text" name="message" autocomplete="off" placeholder="Enter your message here"
                 title="Message input field">
-            <button type="button" aria-label="Send message">Send</button>
+            <button type="submit">Send</button>
         </form>
 
         <ul id="messages1">
@@ -25,26 +25,60 @@
         </ul>
     </div>
 
+    <div id="chat2">
+        <h2>Chat 2</h2>
+        <form id="chatForm2" action="">
+            <label for="input">Message:</label>
+            <input id="input2" type="text" name="message" autocomplete="off" placeholder="Enter your message here"
+                title="Message input field">
+            <button type="submit">Send</button>
+        </form>
+
+        <ul id="messages2">
+            <li>Top Nachricht</li>
+        </ul>
+    </div>
+
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-        var chatForm = document.getElementById('chatForm1');
-        var input = document.getElementById('input');
+        var chatForm1 = document.getElementById('chatForm1');
+        var chatForm2 = document.getElementById('chatForm2');
+        var input1 = document.getElementById('input1');
+        var input2 = document.getElementById('input2');
 
-        chatForm.addEventListener('submit', function (e) {
+        chatForm1.addEventListener('submit', function (e) {
             e.preventDefault();
-            if (input.value) {
-                socket.emit('chat message written', input.value);
-                input.value = '';
+            if (input1.value) {
+                socket.emit('chat message written by chat 1 on a page', input1.value);
+                alert(`chat message written by chat 1 on a page:\n\t ${input1.value}`);
+                input1.value = '';
+            }
+        });
+
+        chatForm2.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input2.value) {
+                socket.emit('chat message written by chat 2 on a page', input2.value);
+                alert(`chat message written by chat 2 on a page:\n\t ${input2.value}`);
+                input2.value = '';
             }
         });
 
         socket.on('chat message received', function (msg) {
-            var item = document.createElement('li');
-            item.textContent = msg;
-            document.getElementById('messages1').appendChild(item);
-            // alert(`chat message received:\n\t ${msg}`);
+            var item1 = document.createElement('li');
+            item1.textContent = msg;
+            document.getElementById('messages1').appendChild(item1);
+
+            var item2 = document.createElement('li');
+            item2.textContent = msg;
+            document.getElementById('messages2').appendChild(item2);
+
+            alert(`chat message received:\n\t ${msg}`);
         });
+
+        alert(`end of script`);
     </script>
 
 </body>
