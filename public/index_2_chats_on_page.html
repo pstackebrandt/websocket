@@ -39,7 +39,6 @@
         </ul>
     </div>
 
-
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
@@ -51,8 +50,12 @@
         chatForm1.addEventListener('submit', function (e) {
             e.preventDefault();
             if (input1.value) {
-                socket.emit('chat message written by chat 1 on a page', input1.value);
-                alert(`chat message written by chat 1 on a page:\n\t ${input1.value}`);
+
+                // 'chat message written' is the name of the event, It must be the same on the server side and all clients.
+                // We can use any name we like for the event.
+
+                socket.emit('chat message written', input1.value);  //chat message written by chat 1 on a page
+                // alert(`chat message written by chat 1 on a page:\n\t ${input1.value}`);
                 input1.value = '';
             }
         });
@@ -60,8 +63,8 @@
         chatForm2.addEventListener('submit', function (e) {
             e.preventDefault();
             if (input2.value) {
-                socket.emit('chat message written by chat 2 on a page', input2.value);
-                alert(`chat message written by chat 2 on a page:\n\t ${input2.value}`);
+                socket.emit('chat message written', input2.value);
+                // alert(`chat message written by chat 2 on a page:\n\t ${input2.value}`);
                 input2.value = '';
             }
         });
@@ -77,8 +80,6 @@
 
             alert(`chat message received:\n\t ${msg}`);
         });
-
-        alert(`end of script`);
     </script>
 
 </body>
