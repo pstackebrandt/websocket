@@ -9,6 +9,7 @@ Got this example from Martin Sawitzky (alfatraining)
 
 ## todo
 - clean up
+- show name of sender in chat
 - read about websocket clients
 - (ok) check connections between index.html and index.js
 

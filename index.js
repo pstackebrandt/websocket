@@ -1,4 +1,4 @@
-'use strict';
+/* 'use strict';
 
 // KONSTANTEN / VARIABLEN
 const elements = {};
@@ -44,4 +44,4 @@ const init = () => {
 // INIT
 init();
 
-//alert('Ende JavaScript');
+//alert('Ende JavaScript'); */
