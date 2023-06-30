@@ -11,21 +11,24 @@
     <br><br>
     <h1> Chat Nachrichten:</h1>
 
-    <form id="chatForm" action="">
-        <label for="input">Message:</label>
-        <input id="input" type="text" name="message" autocomplete="off"
-         placeholder="Enter your message here" title="Message input field">
-        <button type="button" aria-label="Send message">Send</button>
-    </form>
+    <div id="chat1">
+        <h2>Chat 1</h2>
+        <form id="chatForm1" action="">
+            <label for="input">Message:</label>
+            <input id="input" type="text" name="message" autocomplete="off" placeholder="Enter your message here"
+                title="Message input field">
+            <button type="button" aria-label="Send message">Send</button>
+        </form>
 
-    <ul id="messages">
-        <li>Top Nachricht</li>
-    </ul>
+        <ul id="messages1">
+            <li>Top Nachricht</li>
+        </ul>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-        var chatForm = document.getElementById('chatForm');
+        var chatForm = document.getElementById('chatForm1');
         var input = document.getElementById('input');
 
         chatForm.addEventListener('submit', function (e) {
@@ -39,11 +42,11 @@
         socket.on('chat message received', function (msg) {
             var item = document.createElement('li');
             item.textContent = msg;
-            document.getElementById('messages').appendChild(item);
+            document.getElementById('messages1').appendChild(item);
             // alert(`chat message received:\n\t ${msg}`);
         });
     </script>
-    
+
 </body>
 
 </html>
