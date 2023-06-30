@@ -32,7 +32,7 @@ var socket = io();
             var item = document.createElement('li');
             item.textContent = msg;
             document.getElementById('messages').appendChild(item);
-            //alert(msg);
+            alert(msg);
         });
 
 const init = () => {
@@ -43,3 +43,5 @@ const init = () => {
 
 // INIT
 init();
+
+//alert('Ende JavaScript');
