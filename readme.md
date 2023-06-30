@@ -3,6 +3,9 @@
 Got this example from Martin Sawitzky (alfatraining)
 
 
+## Required libraries
+see package.json
+
 ## Features
 - clients can chat in different windows with each other
 - get the client html page eg. index.html from the server
@@ -12,6 +15,10 @@ Got this example from Martin Sawitzky (alfatraining)
 - Sender doesn't get it's own message again.
 
 ## todo
+- create database
+
+- write messages to database
+- create database
 - clean up
 - show name of sender in chat
 - read about websocket clients
