@@ -6,6 +6,18 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+const username = 'admin', password = 'asy';
+const dbName = 'chat_db';
+
+const myMessage = {
+    channel: 'chat message written',
+    text:'Have a nice day!',
+    author: 'Hans'
+}
+
+// Verbindung zu Couch herstellen
+const db = require('nano')(`http://${username}:${password}@127.0.0.1:5984`).db;
+
 //const nano=require('nano')('http://localhost:5984');
 //const dbName='obst';
 
@@ -16,6 +28,7 @@ io.on('connection', (socket) => {
         console.log('message:' + msg);
         // io.emit('chat message received', msg);
         socket.broadcast.emit('chat message received',msg);
+        saveMsgToDb(msg);
     });
 
     socket.on('disconnect', () => {
@@ -23,17 +36,32 @@ io.on('connection', (socket) => {
     });
 });
 
-let db;
 
-var init = async () => {
-    await nano.db.create(dbName);
-    console.log('Datenbank erstellt');
+const saveMsgToDb = (msg) => {
+
+    // use() ist die einzige Methode, die kein Promise ist
+    let myDB = db.use(dbName);
+
+    // parse to JSON
+
+    msg = JSON.parse(msg);
+    // console.log(myDB);
+    myDB.insert(msg).then(
+        console.log
+    ).catch(
+        console.warn
+    )
+
 }
 
-var setup = async () => {
-    db = nano.use(dbName);
-    console.log('DB bereit');
-}
+//let db;
+
+
+// // Unused
+// var getDatabase = async () => {
+//     db = nano.use(dbName);
+//     console.log('DB bereit');
+// }
 
 //setup();
 /*
