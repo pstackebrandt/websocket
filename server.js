@@ -1,3 +1,5 @@
+
+// Constants, variables
 const express = require('express');
 const http = require('http');
 const { Server } = require("socket.io");
@@ -15,11 +17,9 @@ const myMessage = {
     author: 'Hans'
 }
 
-// Verbindung zu Couch herstellen
+// Verbindung zu Couch db herstellen
 const db = require('nano')(`http://${username}:${password}@127.0.0.1:5984`).db;
 
-//const nano=require('nano')('http://localhost:5984');
-//const dbName='obst';
 
 io.on('connection', (socket) => {
     console.log('New user connected');
@@ -38,7 +38,6 @@ io.on('connection', (socket) => {
 
 
 const saveMsgToDb = (msg) => {
-
     // use() ist die einzige Methode, die kein Promise ist
     let myDB = db.use(dbName);
 
@@ -51,7 +50,6 @@ const saveMsgToDb = (msg) => {
     ).catch(
         console.warn
     )
-
 }
 
 //let db;
@@ -69,11 +67,19 @@ app.post('/add',function(req,res){
     console.log(req);
 });*/
 
-//app.post('/', function(req,res){console.log(req);});
-//app.get('/add', function(req,res){console.log(req);});
-app.get('/chat', (req, res) => {
+
+
+// When user calls website without any path sende index.html
+app.get('/', (req, res) => {
     //res.send('Hallo Welt!');
-    console.log('kontakt zum Browser chat page type 1');
+    console.log('User called website without path, We deliver index.html');
+    res.sendFile('C:/Users/peter/code/javascript/js_workshop_alfa/websocket/public/index.html');
+});
+
+const newLocal = '/chat';
+app.get(newLocal, (req, res) => {
+    //res.send('Hallo Welt!');
+    console.log('User called website without path, We deliver index.html');
     res.sendFile('C:/Users/peter/code/javascript/js_workshop_alfa/websocket/public/index.html');
 });
 
@@ -81,7 +87,6 @@ app.get('/chat2', (req, res) => {
     //res.send('Hallo Welt!');
     console.log('kontakt zum Browser with page type 2 chats per page');
     res.sendFile('C:/Users/peter/code/javascript/js_workshop_alfa/websocket/public/index_2_chats_on_page.html');
-    
 });
 
 
